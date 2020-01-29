@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>注册</title>
+	<!-- Bootstrap core CSS -->
+	<link href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="assets/css/signin.css" th:href="@{/assets/css/signin.css}" rel="stylesheet">
+	<link rel="shortcut icon" th:href="@{/assets/img/favicon.ico}" />
+</head>
+
+<body class="text-center">
+<form class="form-signin" th:action="@{/user}" method="post">
+	<input type="hidden" name="_method" value="post"/>
+
+	<img class="mb-4" th:src="@{/assets/img/bootstrap-solid.svg}" src="assets/img/bootstrap-solid.svg" alt="" width="72" height="72">
+	<h1 class="h3 mb-3 font-weight-normal" th:text="#{register.tip}">Please sign in</h1>
+	<!--判断-->
+	<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p><!-- 错误提示 if标签优先级较高-->
+	<label class="sr-only" th:text="#{login.username}">Username</label>
+	<input type="text" name="name" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" autofocus="">
+	<label class="sr-only" th:text="#{login.password}">Password</label>
+	<input type="password" name="password" class="form-control" placeholder="Password" th:placeholder="#{login.password}" required="">
+
+	<button class="btn btn-lg btn-primary btn-block btn-warning" type="submit" th:text="#{login.register}">注册</button>
+	<p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+	<a class="btn btn-sm" th:href="@{/login(l='zh_CN')}">中文</a>
+	<a class="btn btn-sm" th:href="@{/login(l='en_US')}">English</a>
+</form>
+</body>
+
+</html>

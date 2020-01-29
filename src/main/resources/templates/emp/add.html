@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<!--修改、添加二合一页面-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Add</title>
+		<!-- Bootstrap core CSS -->
+		<link href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="assets/css/dashboard.css" th:href="@{/assets/css/dashboard.css}" rel="stylesheet">
+		<link rel="shortcut icon" th:href="@{/assets/img/favicon.ico}" />
+
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--引入抽取的topbar-->
+		<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+		<div th:replace="commons/bar::topbar"></div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<!--引入侧边栏-->
+				<div th:replace="commons/bar::#sidebar(activeUri='emps')"></div>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<!--需要区分是员工修改还是添加；表单页面只支持get和post方式，所以不能直接把method="post"改成method="put"-->
+					<form th:action="@{/emp}" method="post">
+						<!--发送put请求修改员工数据-->
+						<!--
+						1、SpringMVC中配置HiddenHttpMethodFilter;（SpringBoot自动配置好的，所用是将请求转成我们指定的方式）
+						2、页面创建一个post表单
+						3、创建一个input项，name="_method";值就是我们指定的请求方式
+						-->
+						<!--此隐藏域可以被HiddenHttpMethodFilter所处理，然后分发到不同的HttpMethod的处理器上-->
+						<input type="hidden" name="_method" value="put" th:if="${emp!=null}"/>
+						<input type="hidden" name="id" th:if="${emp!=null}" th:value="${emp.id}">
+						<div class="form-group">
+							<label>name</label>
+							<input name="name" type="text" class="form-control" placeholder="zhangsan" th:value="${emp!=null}?${emp.name}">
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input name="email" type="email" class="form-control" placeholder="zhangsan@example.com" th:value="${emp!=null}?${emp.email}">
+						</div>
+						<div class="form-group">
+							<label>Gender</label><br/>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="gender" value="1" th:checked="${emp!=null}?${emp.gender==1}">
+								<label class="form-check-label">男</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="gender" value="0" th:checked="${emp!=null}?${emp.gender==0}">
+								<label class="form-check-label">女</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>department</label>
+							<select class="form-control" name="department">
+								<option th:selected="${emp!=null}?${emp.department == dept.departmentName}" th:value="${dept.departmentName}" th:each="dept:${depts}" th:text="${dept.departmentName}">1</option>
+							</select>
+						</div>
+<!--						<div class="form-group">-->
+<!--							<label>Birth</label>-->
+<!--							<input name="birth" type="text" class="form-control" placeholder="zhangsan" th:value="${emp!=null}?${#dates.format(emp.birth, 'yyyy/MM/dd')}">-->
+<!--						</div>-->
+						<button type="submit" class="btn btn-primary" th:text="${emp!=null}?'修改':'添加'">添加</button>
+					</form>
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="assets/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+		<script type="text/javascript" src="assets/js/popper.min.js" th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
+		<script type="text/javascript" src="assets/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="assets/js/feather.min.js" th:src="@{/assets/js/feather.min.js}"></script>
+		<script>
+			feather.replace()
+		</script>
+
+	</body>
+
+</html>
