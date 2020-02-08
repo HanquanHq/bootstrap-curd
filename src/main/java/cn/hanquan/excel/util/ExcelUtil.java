@@ -6,20 +6,19 @@ import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
-import java.util.Calendar;
-import java.util.Date;
 
 public class ExcelUtil {
 
-    public static void main(String [] args){
+    public static void main(String[] args) {
 
     }
+
     /**
      * ## 3.1 创建 Workbook
      * - `HSSFWorkbook` 是操作 Excel2003 以前（包括2003）的版本，扩展名是.xls；
      * - `XSSFWorkbook` 是操作 Excel2007 后的版本，扩展名是.xlsx；
      * - `SXSSFWorkbook` 是操作 Excel2007 后的版本，扩展名是.xlsx；
-     *
+     * <p>
      * 返回空 输出 workbook.xls workbook.xlsx 注意此时 excel元素不全，还不能打开
      */
     public static void CreateNewWorkbook() {
@@ -42,12 +41,12 @@ public class ExcelUtil {
     }
 
     /**
-     *## 3.2 创建工作表 Sheet
+     * ## 3.2 创建工作表 Sheet
      * - 工作表名称不要超过 31 个字符
      * - 名称不能含有特殊字符
      * - 可以使用 WorkbookUtil.createSafeSheetName 来创建安全的工作表名称
      * 返回空 输出 workbook.xls  注意此时 excel元素不全，还不能打开
-     * */
+     */
     public static void CreateNewSheet() {
         Workbook wb = new HSSFWorkbook();  // or new XSSFWorkbook();
         Sheet sheet1 = wb.createSheet("new sheet");
@@ -67,7 +66,7 @@ public class ExcelUtil {
 
 
     /**
-     *## 3.3 创建单元格 Cells
+     * ## 3.3 创建单元格 Cells
      * - 先有行在有列，先要创建 Row 在创建 Cell
      * - 创建一个样式
      * - 创建一个日期类型的值
@@ -75,7 +74,7 @@ public class ExcelUtil {
      * - 创建一个边框类型单元格
      * - 数据格式化单元格
      * -
-     * */
+     */
     public static void CreateNewCell() {
         Workbook wb = new HSSFWorkbook();  // or new XSSFWorkbook();
         Sheet sheet = wb.createSheet("new sheet");
@@ -141,7 +140,7 @@ public class ExcelUtil {
             wb.write(fileOut);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             // 关闭流
             try {
                 wb.close();
@@ -152,13 +151,12 @@ public class ExcelUtil {
     }
 
 
-
     /**
      * 使用 File 的方式读取 Excel
      * 读取单元格
-     * */
-    public static void OpenExcelByFile(){
-        Workbook wb=null;
+     */
+    public static void OpenExcelByFile() {
+        Workbook wb = null;
         try {
             System.out.println("使用 File 的方式读取 Excel");
             wb = WorkbookFactory.create(new File("workbook.xls"));
@@ -171,7 +169,7 @@ public class ExcelUtil {
             System.out.println("In OpenExcelByFile, cell = " + cell);
         } catch (Exception ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             // 关闭流
             try {
                 wb.close();
@@ -184,9 +182,9 @@ public class ExcelUtil {
 
     /**
      * 使用 FileInputStream
-     * */
-    public static void OpenExcelByFileInputStream(){
-        Workbook wb=null;
+     */
+    public static void OpenExcelByFileInputStream() {
+        Workbook wb = null;
         try {
             System.out.println("使用 FileInputStream 的方式读取 Excel");
             wb = WorkbookFactory.create(new FileInputStream("workbook.xls"));
@@ -196,9 +194,9 @@ public class ExcelUtil {
             Row row = sheet.getRow(0);//获取行
             Cell cell = row.getCell(1);
             System.out.println("In OpenExcelByFile, OpenExcelByFileInputStream = " + cell);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             // 关闭流
             try {
                 wb.close();
@@ -207,6 +205,5 @@ public class ExcelUtil {
             }
         }
     }
-
 
 }
