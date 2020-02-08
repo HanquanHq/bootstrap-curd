@@ -17,7 +17,7 @@ public class HelloController {
         if (user.equals("aaa")) {
             throw new UserNotExistException();
         }
-        return "Hello World";
+        return "Hello World,,,";
     }
 
     @RequestMapping("/login")
