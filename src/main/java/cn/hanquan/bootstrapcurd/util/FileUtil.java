@@ -1,4 +1,4 @@
-package cn.hanquan.file.util;
+package cn.hanquan.bootstrapcurd.util;
 
 import java.io.File;
 import java.io.FileOutputStream;

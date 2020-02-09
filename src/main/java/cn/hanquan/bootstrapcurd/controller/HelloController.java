@@ -17,16 +17,16 @@ public class HelloController {
         if (user.equals("aaa")) {
             throw new UserNotExistException();
         }
-        return "Hello World,,,";
+        return "Hello World";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping(value = {"/", "/login"})
     public String index() {
         System.out.println("here");
         return "login";
     }
 
-    @RequestMapping("/dashboard")
+    @RequestMapping(value = {"/dashboard"})
     public String dashboard() {
         Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("dashboard");
