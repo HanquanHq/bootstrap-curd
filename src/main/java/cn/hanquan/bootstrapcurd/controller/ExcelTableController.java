@@ -2,11 +2,18 @@ package cn.hanquan.bootstrapcurd.controller;
 
 import cn.hanquan.bootstrapcurd.entities.ExcelTable;
 import cn.hanquan.bootstrapcurd.mapper.ExcelTableMapper;
+import cn.hanquan.bootstrapcurd.util.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Collection;
 
 @Controller
@@ -14,6 +21,9 @@ public class ExcelTableController {
 
     @Autowired
     ExcelTableMapper excelTableMapper;
+
+    @Autowired
+    ExcelUtil excelUtil;
 
 
     /**
@@ -87,5 +97,39 @@ public class ExcelTableController {
         System.out.println("In deleteExcelTable, id = " + id);
         excelTableMapper.deleteExcelTableById(id);
         return "redirect:/excelTables";
+    }
+
+
+    /**
+     * excelTable下载
+     */
+    @PostMapping("/downloadExcelTable/{id}")
+    public void downloadExcelTable(@PathVariable("id") Integer id, HttpServletResponse res, HttpServletRequest req) {
+        System.out.println("In downloadExcelTable, id = " + id);
+
+        ExcelTable excelTable = excelTableMapper.getExcelTableById(id);
+        System.out.println("In downloadExcelTable, excelTable = " + excelTable);
+
+        //生成ExcelTable
+        excelUtil.CreateNewWorkbook(excelTable.getId());
+//        excelUtil.CreateNewSheet(excelTable.getId());
+        excelUtil.CreateNewCell(excelTable.getId(), excelTable.getFirstCell(), excelTable.getSecondCell(), excelTable.getThirdCell(), excelTable.getFourthCell());
+
+        req.setAttribute("filename", id);
+        String tempId = "" + req.getAttribute("filename");
+        System.out.println("In downloadExcelTable, tempId = " + tempId);
+        // redirect: 表示重定向到一个地址  /代表当前项目路径，貌似redirect()只支持get方法
+        // forward: 表示转发到一个地址
+        try {
+            System.out.println("In downloadExcelTable, getRequestDispatcher to download");
+            req.getRequestDispatcher("/download").forward(req, res);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        System.out.println("In downloadExcelTable, redirect to download");
+//        return "redirect:/download";
     }
 }

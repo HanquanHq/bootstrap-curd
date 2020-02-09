@@ -99,15 +99,22 @@ public class FileController {
      * 文件下载
      */
     @PostMapping("/download")
-    public void download(String filename, HttpServletResponse res, HttpServletRequest req) throws IOException {
-        res.setHeader("Content-Disposition", "attachment;filename=" + new String(filename.getBytes("UTF-8"), "ISO8859-1"));
+    public void download(HttpServletResponse res, HttpServletRequest req) throws IOException {
+
+        String filename = "" + req.getAttribute("filename");
+        System.out.println("In FilesController, filename = " + filename);
+        String fullFileName = "workbook" + filename + ".xls";
+        // 设置文件的显示名称
+        res.setHeader("Content-Disposition", "attachment;filename=" + new String(fullFileName.getBytes("UTF-8"), "ISO8859-1"));
         ServletOutputStream os = res.getOutputStream();
         String path = uploadPath;
         System.out.println("In FilesController, path = " + path);
-        System.out.println("In FilesController, filename = " + filename);
-        File file = new File(path, filename);
+        System.out.println("In FilesController, fullFileName = " + fullFileName);
+        File file = new File(path, fullFileName);
         os.write(FileUtils.readFileToByteArray(file));
         os.flush();
         os.close();
+
+
     }
 }

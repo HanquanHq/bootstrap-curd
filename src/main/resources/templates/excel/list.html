@@ -8,7 +8,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>员工列表</title>
+		<title>excelTable列表</title>
 		<!-- Bootstrap core CSS -->
 		<link href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
 
@@ -78,15 +78,21 @@
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/excelTable/}+${excelTable.id}">编辑</a>
 										<button th:attr="del_uri=@{/excelTable/}+${excelTable.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>
+										<button th:attr="download_uri=@{/downloadExcelTable/}+${excelTable.id}" class="btn btn-sm btn-info downloadBtn">下载</button>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</main>
-				<form id="deleteEmpForm"  method="post">
+
+				<form id="deleteExcelTableForm"  method="post">
 					<input type="hidden" name="_method" value="delete"/>
 				</form>
+
+				<form id="downloadExcelTableForm" method="post" enctype="multipart/form-data">
+				</form>
+
 			</div>
 		</div>
 
@@ -102,12 +108,19 @@
 		<script>
 			feather.replace()
 		</script>
+
 		<script>
 			$(".deleteBtn").click(function(){
-			    //删除当前员工的
-			    $("#deleteEmpForm").attr("action",$(this).attr("del_uri")).submit();
+			    //用于删除当前excelTable
+			    $("#deleteExcelTableForm").attr("action",$(this).attr("del_uri")).submit();
 			    return false;
             });
+
+			$(".downloadBtn").click(function(){
+				//用于下载当前excelTable
+				$("#downloadExcelTableForm").attr("action",$(this).attr("download_uri")).submit();
+				return false;
+			});
 		</script>
 	</body>
 </html>
