@@ -80,6 +80,7 @@ public class FileController {
         //获取时间
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));  // 设置北京时区
         String curTime = dateFormat.format(calendar.getTime());
         System.out.println("In upload, current time is: " + curTime);
 
