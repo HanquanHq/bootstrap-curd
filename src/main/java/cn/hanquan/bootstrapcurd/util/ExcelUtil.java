@@ -30,13 +30,19 @@ public class ExcelUtil {
      */
     public void CreateNewWorkbook(Integer id) {
         Workbook wb = new HSSFWorkbook();
+        OutputStream fileOut = null;
         try {
-            System.out.println("创建workbook.xls");
-            OutputStream fileOut = new FileOutputStream(uploadPath + "workbook" + id + ".xls");
+            System.out.println("创建workbook, id = "+id);
+            fileOut = new FileOutputStream(uploadPath + "workbook" + id + ".xls");
             wb.write(fileOut);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            try {
+                fileOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             try {
                 wb.close();
             } catch (IOException e) {

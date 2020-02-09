@@ -1,24 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<hr/>
-<div>单位文件</div>
-<form enctype="multipart/form-data" method="post" action="upload">
-    文件 <input type="file" name="file"/>
-    <input type="submit" value="上传"/>
-</form>
-<hr/>
-<div>多文件</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<form enctype="multipart/form-data" method="post" action="uploads">
-    <p>文件1<input type="file" name="files"/></p>
-    <p>文件2<input type="file" name="files"/></p>
-    <p>文件3<input type="file" name="files"/></p>
-    <p><input type="submit" value="上传"/></p>
-</form>
+    <title>上传您的文件</title>
+
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <script href="assets/js/jquery.min.js"></script>
+    <script href="assets/js/bootstrap.js"></script>
+    <link rel="shortcut icon" th:href="@{/assets/img/favicon.ico}" />
+
+    <style>
+        .container {
+            herght: 300px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>文件上传</h1>
+</div>
+
+<div class="container">
+    <div class="col-md-6">
+        <form enctype="multipart/form-data" method="post" action="upload">
+            <br/>
+            <blockquote>请先选择文件，然后点击上传按钮。为避免文件名重复，文件名末尾将自动添加4位UUID。</blockquote>
+            <blockquote>建议您使用Chrome浏览器。</blockquote>
+            <input type="hidden" name="id" th:if="${emp!=null}" th:value="${emp.id}">
+            <input class="btn btn-primary btn-lg btn-block" type="file" name="file" onclick="enableUpLoad()"/>
+            <br/>
+            <input id="upLoad" class="btn btn-warning btn-lg btn-block" disabled="disabled" type="submit" value="上传" />
+        </form>
+        <br>
+        <script>
+            //上传按钮生效
+            function enableUpLoad()
+            {
+                document.getElementById("upLoad").disabled=false;
+            }
+        </script>
+    </div>
+
+    <div class="col-md-6">
+        <h3>条款说明：</h3>
+        <p>1、文件上传、使用均免费；</p>
+        <p>2、单个文件最大为 100M；</p>
+        <p>3、严禁上传色情、暴力、损害他人或国家利益的非法内容；</p>
+        <p>4、上传或转载的文件应是无法律纠纷的；</p>
+        <p>5、因不可抗力而造成用户数据泄露，本站不承担责任，如黑客攻击、病毒入侵等；</p>
+        <p>6、本站定期删除您上传的文件；</p>
+        <p>7、上传即表示同意上述约定。</p>
+    </div>
+</div>
 </body>
 </html>
