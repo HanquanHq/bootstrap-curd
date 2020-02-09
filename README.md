@@ -1,5 +1,5 @@
 # bootstrap-curd
-基于SpringBoot，整合MyBatis, Hibernate, JPA, Druid, bootstrap, thymeleaf等，进行增删改查操作的Demo
+基于SpringBoot，整合MyBatis, Hibernate, JPA, Druid, bootstrap, thymeleaf等，进行增删改查操作、文件上传、文件下载、excel生成的Demo
 
 
 - 默认开启8080端口，项目基础路径为/curd，可在application.properties中更改
