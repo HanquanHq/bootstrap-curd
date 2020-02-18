@@ -38,7 +38,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 //拦截所有，手动放行部分页面
                 //静态资源不需要处理，可以正常访问。springboot已经做好了静态资源映射
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns("/","login","/login", "/login.html", "/user/login", "/**/*.css","/**/*.min.css", "/**/*.js", "/**/*.png",
+                        .excludePathPatterns("/user","/register","register","/register.html","/user/register","/","login","/login", "/login.html", "/user/login", "/**/*.css","/**/*.min.css", "/**/*.js", "/**/*.png",
                                 "/**/*.jpg","/**/*.jpeg", "/**/*.gif", "/**/fonts/*", "/**/*.svg","/**/*.ico","/**/*.map");
             }
         };
